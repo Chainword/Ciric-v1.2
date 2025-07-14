@@ -1,0 +1,51 @@
+{
+  "name": "ciric-react",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-remove-scroll": "^2.7.1"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"No tests defined yet\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "prettier"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.10",
+    "tailwindcss": "^4.1.11",
+    "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,122 @@
+/* ContentGrid.module.css */
+
+.contentSection {
+  width: 100%;
+  padding-bottom: min(max(8rem, calc(8rem + ((1vw - 0.32rem) * 5))), 4rem);
+  background-color: var(--main-bg);
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 2vw 8vw;
+  padding-top: 0vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 0vh;
+  margin-bottom: 0;
+  color: var(--white);
+  z-index: var(--z-content);
+}
+
+.text {
+  font-family: var(--font-base);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  padding-left: 1rem;
+  z-index: var(--z-content);
+}
+
+.text:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+@media (max-width: 991px) {
+  .contentSection {
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-top: 0vh;
+  }
+}
+
+@media (max-width: 767px) {
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+  }
+}
+
+/* ------------------- AJOUTS POUR L'OPACITÉ ET LE PADDING ------------------- */
+
+.title,
+.text {
+  transition:
+    color 0.3s,
+    opacity 0.3s;
+}
+
+/* Desktop : titre toujours opaque, texte semi-transparent, hover sur texte seulement */
+@media (min-width: 992px) {
+  .title {
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
+    transition: none;
+  }
+  .text {
+    color: rgba(255, 255, 255, 1);
+    opacity: 0.75;
+  }
+  .text:hover {
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
+  }
+}
+
+/* Tablette et mobile : titre et texte toujours opaques */
+@media (max-width: 991px) {
+  .title,
+  .text {
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
+  }
+  .container {
+    padding: 2vw 3vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 2vw 1vw;
+  }
+}

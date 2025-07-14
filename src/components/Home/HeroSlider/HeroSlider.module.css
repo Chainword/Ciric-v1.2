@@ -1,0 +1,94 @@
+/* HeroSlider.module.css */
+
+.sliderContainer {
+  position: relative;
+  width: 100%;
+  height: 44vh;
+  margin-top: 0vh;
+  overflow: hidden;
+  z-index: -1000;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 4096ms ease-in-out,
+    visibility 4096ms ease-in-out;
+  display: flex;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slideImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: inset 0 0 0 1000px rgba(10, 50, 60, 100);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+/* Ken Burns effect */
+.slide.zoomIn .imagePlaceholder {
+  transform: scale(1) translate(0, 0);
+  animation: kenBurns 10s ease-in-out forwards;
+}
+
+.slide.zoomOut .imagePlaceholder {
+  transform: scale(1.1) translate(0, 0);
+  animation: kenBurns 10s ease-in-out reverse forwards;
+}
+
+.imagePlaceholder::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  filter: brightness(0.8) contrast(1.1);
+}
+
+/* Tablet styles */
+@media (max-width: 991px) {
+  .sliderContainer {
+    height: 80vh;
+  }
+}
+
+/* Animations */
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(0, 0);
+  }
+}

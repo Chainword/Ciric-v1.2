@@ -1,0 +1,549 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* globals.css */
+
+/* Font Face definitions for local Poppins fonts */
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/poppins/Poppins-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Reset et base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+/* VARIABLE DE COULEUR DE FOND UNIQUE */
+:root {
+  --main-bg: #141414;
+  /* Couleurs principales */
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+
+  /* Palette */
+  --primary-color: #141414;
+  --secondary-color: #242424;
+  --secondary-color-opacity: rgba(36, 36, 36, 0.5);
+  --secondary-color-hover: #343434;
+  --tertiary-color: #114b37;
+  --tertiary-color-hover: #1e8753;
+  /*
+  --tertiary-color: #6D170D;
+  --tertiary-color-hover: #A42213;
+  */
+  --card-bg: #242424;
+  --card-bg-hover: #343434;
+  --gray-500: #555555;
+  --gray-600: #666666;
+  --gray-700: #4a5568;
+  --gray-800: #2d3748;
+  --gray-900: #181818;
+
+  /* Font families */
+  --font-base:
+    "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  --font-heading: "Poppins", sans-serif;
+
+  /* Typography scale */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+
+  /* Espacements */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Preview article */
+  --preview-height: 24vh;
+
+  /* Breakpoints */
+  --phone-portrait: 480px;
+  --phone-landscape: 768px;
+  --tablet: 991px;
+  --desktop: 1200px;
+  --page-width: 1440px;
+
+  /* Animations */
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition-x2slow: 1000ms ease;
+  --trace-size: 1rem;
+
+  /* Z-index */
+  --z-header: 1000000;
+  --z-tabs: 100000;
+  --z-content: 10000;
+  --z-base: 1;
+}
+
+body {
+  font-family: var(--font-base);
+  color: var(--white);
+  background-color: var(--main-bg);
+  min-height: 100vh;
+  scrollbar-gutter: stable;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: none;
+}
+
+/* Si tu veux que le dark-navigator hérite aussi de la variable */
+.dark-navigator {
+  background-color: var(--main-bg) !important;
+  color: var(--white);
+}
+
+.dark-navigator2 {
+  background-color: rgba(44, 45, 49, 0.5);
+}
+
+/* No scroll */
+body.noscroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Scrollbar personnalisée */
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 0px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.16);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+*::-webkit-scrollbar-button,
+*::-webkit-scrollbar-corner {
+  display: none;
+  background-color: transparent;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--white);
+}
+
+p {
+  line-height: 1.6;
+  color: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--transition-base);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Buttons reset */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Grid system */
+.grid {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+/* Responsive grid */
+@media (max-width: 991px) {
+  .lg-grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .md-grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-2%, -2%);
+  }
+}
+
+@keyframes breathingGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Utility classes */
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.hidden {
+  display: none !important;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-scroll {
+  overflow: auto;
+}
+
+/*
+ * Disable Google Translate by applying the HTML attribute
+ * translate="no" or using class="notranslate" on the element.
+ */
+
+/* Ken Burns animation */
+.ken-burns {
+  animation: kenBurns 20s ease-in-out infinite alternate;
+}
+
+/* Image contrast */
+.image-contrast {
+  filter: brightness(0.8) contrast(1.1);
+}
+
+/* Parallax */
+.parallax-image {
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+body.overlay-active::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.24);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* S'assurer que header et tabs containers soient au-dessus */
+.header,
+.tabsContainer,
+.desktopTabsContainer,
+.mobileTabsContainer {
+  position: relative; /* ajouter si absent */
+  z-index: 1100; /* supérieur à 1000 pour passer au-dessus */
+}
+
+body.overlay-active main {
+  filter: blur(12px);
+  transition: filter 0s ease-in;
+}
+
+/* Mode grand espace pour la section Stunning */
+
+.aura-pulse {
+  animation: pulse-glow-mix 16s ease-in-out infinite;
+}
+
+@keyframes pulse-glow-mix {
+  0%,
+  100% {
+    text-shadow:
+      0 0 2px var(--tertiary-color),
+      0 0 4px var(--tertiary-color),
+      0 0 8px var(--tertiary-color),
+      0 0 16px var(--tertiary-color, #fff);
+  }
+  50% {
+    text-shadow:
+      0 0 2px var(--tertiary-color-hover),
+      0 0 4px var(--tertiary-color-hover),
+      0 0 8px var(--tertiary-color-hover),
+      0 0 16px var(--tertiary-color-hover, #fff);
+  }
+}
+
+@media (min-width: 767px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 992px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
