@@ -158,6 +158,8 @@ body,
   --white: #ffffff;
   --black: #000000;
   --transparent: transparent;
+  /* Viewport unit fallback */
+  --vh: 1vh;
 
   /* Palette */
   --primary-color: #141414;
