@@ -1,19 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { TABLET } from "../../../constants/breakpoints";
-import useThrottledEvent from "../../../hooks/useThrottledEvent";
 import HeaderNav from "./HeaderNav";
 import TabsContent from "./TabsContent";
 
 const Header = () => {
   const [activeTab, setActiveTab] = useState(null);
   const [isSticky, setIsSticky] = useState(window.innerWidth <= TABLET);
-  const [isMobile, setIsMobile] = useState(false);
-  const [showMobileTabs, setShowMobileTabs] = useState(false);
-  const [showCloseText, setShowCloseText] = useState({});
   const [isHeaderHovered, setIsHeaderHovered] = useState(false);
   const [isContentHovered, setIsContentHovered] = useState(false);
   const headerRef = useRef(null);
-  const lastScrollTop = useRef(0);
   const languageRef = useRef(null);
 
   const tabs = [
@@ -41,55 +36,9 @@ const Header = () => {
     };
   }, []);
 
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= TABLET);
-    if (window.innerWidth > TABLET) {
-      setIsSticky(true); // Toujours sticky sur desktop
-      setShowCloseText({});
-    } else {
-      setIsSticky(true); // Sticky sur mobile aussi mais par logique mobile
-      if (activeTab !== null) {
-        setShowCloseText({ [activeTab]: true });
-      }
-    }
-  };
-
   useEffect(() => {
-    handleResize();
+    setIsSticky(true);
   }, []);
-
-  useThrottledEvent("resize", handleResize, 200);
-
-  // Toujours sticky sur mobile/tablette au chargement ou si resize vers mobile/tablette
-  useEffect(() => {
-    if (window.innerWidth <= TABLET) {
-      setIsSticky(true);
-    }
-  }, [isMobile]);
-
-  const handleScroll = () => {
-    if (activeTab) return; // Don't change sticky when a tab is open
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (window.innerWidth > TABLET) {
-      setIsSticky(true); // Always sticky on desktop
-      return;
-    }
-
-    if (scrollTop < lastScrollTop.current) {
-      // Scrolling up
-      setIsSticky(true);
-      setShowMobileTabs(false);
-    } else if (scrollTop > lastScrollTop.current) {
-      // Scrolling down
-      setIsSticky(false);
-      setShowMobileTabs(true);
-    }
-
-    lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
-  };
-
-  useThrottledEvent("scroll", handleScroll, 100);
 
   // Handle tab interactions
   const handleTabMouseOver = (tabId) => {
@@ -99,15 +48,7 @@ const Header = () => {
   };
 
   const handleTabClick = (tabId) => {
-    if (window.innerWidth <= TABLET) {
-      if (activeTab === tabId) {
-        setActiveTab(null);
-        setShowCloseText((prev) => ({ ...prev, [tabId]: false }));
-      } else {
-        setActiveTab(tabId);
-        setShowCloseText({ [tabId]: true });
-      }
-    }
+    setActiveTab((prev) => (prev === tabId ? null : tabId));
   };
 
   const handleLanguageMouseEnter = () => {
@@ -117,23 +58,17 @@ const Header = () => {
   };
 
   const handleLanguageMouseLeave = () => {
-    if (window.innerWidth > TABLET) {
-      languageRef.current?.stop();
-    }
+    languageRef.current?.stop();
   };
 
   useEffect(() => {
-    if (window.innerWidth <= TABLET) {
-      setTimeout(() => {
-        languageRef.current?.trigger(60);
-      }, 300);
-    }
+    setTimeout(() => {
+      languageRef.current?.trigger(60);
+    }, 300);
   }, []);
 
   const handleLanguageClick = () => {
-    if (window.innerWidth <= TABLET) {
-      languageRef.current?.trigger();
-    }
+    languageRef.current?.trigger();
     const currentUrl = window.location.href;
     const ALLOWED_LANGS = ["en", "fr", "es", "de"];
     const rawLang = (navigator.language || navigator.userLanguage || "en")
@@ -171,19 +106,16 @@ const Header = () => {
         isSticky={isSticky}
         tabs={tabs}
         activeTab={activeTab}
-        showCloseText={showCloseText}
         handleTabMouseOver={handleTabMouseOver}
         handleTabClick={handleTabClick}
         handleLanguageClick={handleLanguageClick}
         languageRef={languageRef}
-        showMobileTabs={showMobileTabs}
         onHeaderMouseEnter={() => setIsHeaderHovered(true)}
         onHeaderMouseLeave={() => setIsHeaderHovered(false)}
       />
       <TabsContent
         activeTab={activeTab}
         tabs={tabs}
-        isMobile={isMobile}
         setIsContentHovered={setIsContentHovered}
         tab1Images={tab1Images}
       />
