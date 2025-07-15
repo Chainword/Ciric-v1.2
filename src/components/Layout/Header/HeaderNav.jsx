@@ -5,7 +5,6 @@ import { TABLET } from "../../../constants/breakpoints";
 
 const HeaderNav = ({
   headerRef,
-  isSticky,
   tabs,
   activeTab,
   showCloseText,
@@ -13,14 +12,13 @@ const HeaderNav = ({
   handleTabClick,
   handleLanguageClick,
   languageRef,
-  showMobileTabs,
   onHeaderMouseEnter,
   onHeaderMouseLeave,
 }) => (
   <>
     <header
       ref={headerRef}
-      className={`${styles.header} ${isSticky ? styles.sticky : ""}`}
+      className={styles.header}
       onMouseEnter={onHeaderMouseEnter}
       onMouseLeave={onHeaderMouseLeave}
     >
@@ -69,11 +67,7 @@ const HeaderNav = ({
         </div>
       </div>
     </header>
-    <div
-      className={`${styles.mobileTabsContainer} ${
-        showMobileTabs ? styles.visible : ""
-      }`}
-    >
+    <div className={styles.mobileTabsContainer}>
       {tabs.map((tab) => (
         <TabButton
           key={tab.id}
