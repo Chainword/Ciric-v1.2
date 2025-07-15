@@ -8,12 +8,10 @@ const HeaderNav = ({
   isSticky,
   tabs,
   activeTab,
-  showCloseText,
   handleTabMouseOver,
   handleTabClick,
   handleLanguageClick,
   languageRef,
-  showMobileTabs,
   onHeaderMouseEnter,
   onHeaderMouseLeave,
 }) => (
@@ -40,7 +38,6 @@ const HeaderNav = ({
                 key={tab.id}
                 tab={tab}
                 activeTab={activeTab}
-                showCloseText={showCloseText}
                 handleTabMouseOver={handleTabMouseOver}
                 handleTabClick={handleTabClick}
               />
@@ -69,22 +66,7 @@ const HeaderNav = ({
         </div>
       </div>
     </header>
-    <div
-      className={`${styles.mobileTabsContainer} ${
-        showMobileTabs ? styles.visible : ""
-      }`}
-    >
-      {tabs.map((tab) => (
-        <TabButton
-          key={tab.id}
-          tab={tab}
-          activeTab={activeTab}
-          showCloseText={showCloseText}
-          handleTabMouseOver={handleTabMouseOver}
-          handleTabClick={handleTabClick}
-        />
-      ))}
-    </div>
+    {/* Mobile tabs removed */}
   </>
 );
 
