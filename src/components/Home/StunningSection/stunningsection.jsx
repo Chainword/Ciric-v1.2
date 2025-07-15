@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import styles from "./stunningsection.module.css";
+import useThrottledEvent from "../../../hooks/useThrottledEvent";
 
 const TRACE_LIFETIME = 100000; // 10s
 const TRACE_INTERVAL = 1; // ms
@@ -32,12 +33,12 @@ const StunningSection = () => {
   React.useEffect(() => {
     updateBounds();
     window.addEventListener("resize", updateBounds);
-    window.addEventListener("scroll", updateBounds);
     return () => {
       window.removeEventListener("resize", updateBounds);
-      window.removeEventListener("scroll", updateBounds);
     };
   }, []);
+
+  useThrottledEvent("scroll", updateBounds, 100);
 
   // Gère l'état des touches Ctrl et Alt
   React.useEffect(() => {
@@ -210,8 +211,9 @@ const StunningSection = () => {
 
           <div className={styles.colSubtitle}>
             <p className={styles.subtitle}>
-              S'autoriser de soi-même un espace sans attendre une validation de ce que l'on veut dire.
-              Activez le bouton situé à droite et restez appuyer sur Ctrl pour le faire maintenant.
+              S'autoriser de soi-même un espace sans attendre une validation de
+              ce que l'on veut dire. Activez le bouton situé à droite et restez
+              appuyer sur Ctrl pour le faire maintenant.
             </p>
           </div>
 
