@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styles from "./ArticleSection.module.css";
 
 const data = [
@@ -125,89 +125,19 @@ const data = [
 ];
 
 const ArticleSection = () => {
-  const columnRefs = useRef([]);
-  const indexRefs = useRef(data.map(() => 0));
-
-  useEffect(() => {
-    const listeners = [];
-
-    const updateClasses = (column, idx) => {
-      const cards = column.querySelectorAll(`.${styles.card}`);
-      cards.forEach((c) => c.classList.remove(styles.active, styles.preview));
-      const activeIdx = indexRefs.current[idx];
-      if (cards[activeIdx]) cards[activeIdx].classList.add(styles.active);
-      if (cards[activeIdx + 1])
-        cards[activeIdx + 1].classList.add(styles.preview);
-    };
-
-    const updateScroll = (column, idx) => {
-      const isHorizontal = window.innerWidth <= 991;
-      const cards = column.querySelectorAll(`.${styles.card}`);
-      const current = cards[indexRefs.current[idx]];
-      if (!current) return;
-      const pos = isHorizontal ? current.offsetLeft : current.offsetTop;
-      if (isHorizontal) {
-        column.scrollTo({ left: pos, behavior: "auto" });
-      } else {
-        column.scrollTo({ top: pos, behavior: "auto" });
-      }
-      updateClasses(column, idx);
-    };
-
-    columnRefs.current.forEach((column, idx) => {
-      if (!column) return;
-
-      const handleWheel = (e) => {
-        e.preventDefault();
-        const isHorizontal = window.innerWidth <= 991;
-        const dir = e.deltaY > 0 ? 1 : -1;
-        const cards = column.querySelectorAll(`.${styles.card}`);
-        if (!cards.length) return;
-        let next = indexRefs.current[idx] + dir;
-        next = Math.max(0, Math.min(cards.length - 1, next));
-        if (next === indexRefs.current[idx]) return;
-        indexRefs.current[idx] = next;
-        const card = cards[next];
-        const pos = isHorizontal ? card.offsetLeft : card.offsetTop;
-        if (isHorizontal) {
-          column.scrollTo({ left: pos, behavior: "auto" });
-        } else {
-          column.scrollTo({ top: pos, behavior: "auto" });
-        }
-        updateClasses(column, idx);
-      };
-
-      const handleResize = () => updateScroll(column, idx);
-
-      column.addEventListener("wheel", handleWheel, { passive: false });
-      listeners.push(() => column.removeEventListener("wheel", handleWheel));
-      window.addEventListener("resize", handleResize);
-      listeners.push(() => window.removeEventListener("resize", handleResize));
-
-      // ensure correct position on mount and after any resize
-      updateScroll(column, idx);
-    });
-
-    return () => {
-      listeners.forEach((off) => off());
-    };
-  }, []);
 
   return (
     <section className={styles.section}>
       <div className={styles.section__content}>
         <div className={styles.grid}>
-          {data.map((column, columnIdx) => (
+          {data.map((column) => (
             <div key={column.theme} className={styles.column}>
-                            <h3
+              <h3
                 className={`${styles.theme} ${column.light ? styles.themeLight : ""}`}
               >
                 {column.theme}
               </h3>
-              <div
-                className={styles.columnScroll}
-                ref={(el) => (columnRefs.current[columnIdx] = el)}
-              >
+              <div className={styles.columnScroll}>
                 {column.articles.map((article, idx) => (
                   <article key={article.id} className={styles.card}>
                     <img

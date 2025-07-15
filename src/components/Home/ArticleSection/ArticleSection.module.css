@@ -100,7 +100,7 @@
   scroll-snap-type: y mandatory;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  scroll-behavior: auto !important;
+  scroll-behavior: smooth;
   height: calc(var(--card-height) + var(--gap-height) + var(--preview-height));
   padding-right: 0.5rem;
 }
