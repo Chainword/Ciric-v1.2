@@ -1,6 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-export default function useThrottledEvent(eventName, handler, delay = 100) {
+export default function useThrottledEvent(
+  eventName,
+  handler,
+  delay = 100,
+  options = { passive: false },
+) {
   const lastCall = useRef(0);
   const savedHandler = useRef(handler);
 
@@ -17,7 +22,7 @@ export default function useThrottledEvent(eventName, handler, delay = 100) {
       }
     };
 
-    window.addEventListener(eventName, listener);
-    return () => window.removeEventListener(eventName, listener);
-  }, [eventName, delay]);
+    window.addEventListener(eventName, listener, options);
+    return () => window.removeEventListener(eventName, listener, options);
+  }, [eventName, delay, options]);
 }

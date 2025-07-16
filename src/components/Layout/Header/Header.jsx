@@ -58,7 +58,7 @@ const Header = () => {
     handleResize();
   }, []);
 
-  useThrottledEvent("resize", handleResize, 200);
+  useThrottledEvent("resize", handleResize, 200, { passive: true });
 
   // Toujours sticky sur mobile/tablette au chargement ou si resize vers mobile/tablette
   useEffect(() => {
@@ -67,20 +67,25 @@ const Header = () => {
     }
   }, [isMobile]);
 
+  const MIN_SCROLL_DELTA = 10;
   const handleScroll = () => {
     if (activeTab) return; // Don't change sticky when a tab is open
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const delta = scrollTop - lastScrollTop.current;
+
+    if (Math.abs(delta) < MIN_SCROLL_DELTA) return;
 
     if (window.innerWidth > TABLET) {
       setIsSticky(true); // Always sticky on desktop
+      lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
       return;
     }
 
-    if (scrollTop < lastScrollTop.current) {
+    if (delta < 0) {
       // Scrolling up
       setIsSticky(true);
       setShowMobileTabs(false);
-    } else if (scrollTop > lastScrollTop.current) {
+    } else if (delta > 0) {
       // Scrolling down
       setIsSticky(false);
       setShowMobileTabs(true);
@@ -89,7 +94,7 @@ const Header = () => {
     lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
   };
 
-  useThrottledEvent("scroll", handleScroll, 100);
+  useThrottledEvent("scroll", handleScroll, 50, { passive: true });
 
   // Handle tab interactions
   const handleTabMouseOver = (tabId) => {
