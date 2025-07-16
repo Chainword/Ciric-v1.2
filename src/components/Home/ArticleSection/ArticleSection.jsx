@@ -2,16 +2,14 @@ import React, { useEffect, useRef } from "react";
 import styles from "./ArticleSection.module.css";
 
 const data = [
-
-    {
+  {
     theme: "Récents",
     light: true,
     articles: [
       {
         id: 10,
         title: "Dernières actualités",
-        summary:
-          "Tags : Consectetur. Adipiscing elit. Sed do eiusmod tempor.",
+        summary: "Tags : Consectetur. Adipiscing elit. Sed do eiusmod tempor.",
         date: "2024-06-01",
         author: "François",
       },
@@ -35,7 +33,6 @@ const data = [
   },
 
   {
-    
     theme: "Vision",
     articles: [
       {
@@ -157,8 +154,10 @@ const ArticleSection = () => {
     columnRefs.current.forEach((column, idx) => {
       if (!column) return;
 
+      const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+
       const handleWheel = (e) => {
-        e.preventDefault();
+        if (!isCoarse) e.preventDefault();
         const isHorizontal = window.innerWidth <= 991;
         const dir = e.deltaY > 0 ? 1 : -1;
         const cards = column.querySelectorAll(`.${styles.card}`);
@@ -179,7 +178,7 @@ const ArticleSection = () => {
 
       const handleResize = () => updateScroll(column, idx);
 
-      column.addEventListener("wheel", handleWheel, { passive: false });
+      column.addEventListener("wheel", handleWheel, { passive: isCoarse });
       listeners.push(() => column.removeEventListener("wheel", handleWheel));
       window.addEventListener("resize", handleResize);
       listeners.push(() => window.removeEventListener("resize", handleResize));
@@ -199,7 +198,7 @@ const ArticleSection = () => {
         <div className={styles.grid}>
           {data.map((column, columnIdx) => (
             <div key={column.theme} className={styles.column}>
-                            <h3
+              <h3
                 className={`${styles.theme} ${column.light ? styles.themeLight : ""}`}
               >
                 {column.theme}
@@ -241,12 +240,11 @@ const ArticleSection = () => {
           <a href="#" className={styles.button}>
             Accéder à tous les articles
           </a>
-            {/* 
+          {/* 
             <a href="#" className={styles.buttonSecondary}>
               Soumettre un article
             </a>
             */}
-
         </div>
       </div>
     </section>

@@ -25,12 +25,16 @@
     var(--primary-color) 100%
   );
 }
-.section::before { top: 0; }
-.section::after { bottom: 0; }
+.section::before {
+  top: 0;
+}
+.section::after {
+  bottom: 0;
+}
 
 @media (max-width: 991px) {
   .section {
-    padding: 0 8vw;   /* Ajout du padding latéral comme InSituCards */
+    padding: 0 8vw; /* Ajout du padding latéral comme InSituCards */
   }
   .section::before,
   .section::after {
@@ -97,6 +101,8 @@
 .columnScroll {
   position: relative;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   scroll-snap-type: y mandatory;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -422,7 +428,7 @@
   }
   .meta {
     padding: 0.5rem 0.7rem;
-    font-size: 0.60rem;
+    font-size: 0.6rem;
   }
   .follow {
     flex: 0 0 22vw;
