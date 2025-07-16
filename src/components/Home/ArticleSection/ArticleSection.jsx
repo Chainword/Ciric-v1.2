@@ -2,16 +2,14 @@ import React, { useEffect, useRef } from "react";
 import styles from "./ArticleSection.module.css";
 
 const data = [
-
-    {
+  {
     theme: "Récents",
     light: true,
     articles: [
       {
         id: 10,
         title: "Dernières actualités",
-        summary:
-          "Tags : Consectetur. Adipiscing elit. Sed do eiusmod tempor.",
+        summary: "Tags : Consectetur. Adipiscing elit. Sed do eiusmod tempor.",
         date: "2024-06-01",
         author: "François",
       },
@@ -35,7 +33,6 @@ const data = [
   },
 
   {
-    
     theme: "Vision",
     articles: [
       {
@@ -158,9 +155,29 @@ const ArticleSection = () => {
       if (!column) return;
 
       const handleWheel = (e) => {
-        e.preventDefault();
         const isHorizontal = window.innerWidth <= 991;
-        const dir = e.deltaY > 0 ? 1 : -1;
+        const delta = e.deltaY;
+
+        if (isHorizontal) {
+          const atStart = column.scrollLeft <= 0;
+          const atEnd =
+            Math.ceil(column.scrollLeft + column.clientWidth) >=
+            column.scrollWidth;
+          if ((delta < 0 && atStart) || (delta > 0 && atEnd)) {
+            return; // allow page scroll
+          }
+        } else {
+          const atTop = column.scrollTop <= 0;
+          const atBottom =
+            Math.ceil(column.scrollTop + column.clientHeight) >=
+            column.scrollHeight;
+          if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
+            return; // allow page scroll
+          }
+        }
+
+        e.preventDefault();
+        const dir = delta > 0 ? 1 : -1;
         const cards = column.querySelectorAll(`.${styles.card}`);
         if (!cards.length) return;
         let next = indexRefs.current[idx] + dir;
@@ -199,7 +216,7 @@ const ArticleSection = () => {
         <div className={styles.grid}>
           {data.map((column, columnIdx) => (
             <div key={column.theme} className={styles.column}>
-                            <h3
+              <h3
                 className={`${styles.theme} ${column.light ? styles.themeLight : ""}`}
               >
                 {column.theme}
@@ -241,12 +258,11 @@ const ArticleSection = () => {
           <a href="#" className={styles.button}>
             Accéder à tous les articles
           </a>
-            {/* 
+          {/* 
             <a href="#" className={styles.buttonSecondary}>
               Soumettre un article
             </a>
             */}
-
         </div>
       </div>
     </section>
