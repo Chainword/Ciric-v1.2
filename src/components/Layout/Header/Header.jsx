@@ -12,6 +12,7 @@ const Header = () => {
   const [showCloseText, setShowCloseText] = useState({});
   const [isHeaderHovered, setIsHeaderHovered] = useState(false);
   const [isContentHovered, setIsContentHovered] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const headerRef = useRef(null);
   const lastScrollTop = useRef(0);
   const languageRef = useRef(null);
@@ -39,6 +40,16 @@ const Header = () => {
     return () => {
       document.body.classList.remove("dark-navigator");
     };
+  }, []);
+
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsFooterVisible(entry.isIntersecting);
+    });
+    observer.observe(footer);
+    return () => observer.disconnect();
   }, []);
 
   const handleResize = () => {
@@ -73,7 +84,16 @@ const Header = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const delta = scrollTop - lastScrollTop.current;
 
-    if (Math.abs(delta) < MIN_SCROLL_DELTA) return;
+    if (isFooterVisible) {
+      setShowMobileTabs(true);
+      lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
+      return;
+    }
+
+    if (Math.abs(delta) < MIN_SCROLL_DELTA) {
+      lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
+      return;
+    }
 
     if (window.innerWidth > TABLET) {
       setIsSticky(true); // Always sticky on desktop
@@ -168,6 +188,12 @@ const Header = () => {
       document.body.classList.remove("overlay-active");
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    if (isFooterVisible) {
+      setShowMobileTabs(true);
+    }
+  }, [isFooterVisible]);
 
   return (
     <>
