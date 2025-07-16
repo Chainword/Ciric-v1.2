@@ -1,0 +1,17 @@
+.sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+.lockSection {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: var(--primary-color);
+}
+
+@media (min-width: 992px) {
+  .sentinel,
+  .lockSection {
+    display: none;
+  }
+}
