@@ -1,26 +1,22 @@
 import TabButton from "./TabButton";
 import styles from "./Header.module.css";
 import ScrambledText from "../../Common/ScrambledText";
-import { TABLET } from "../../../constants/breakpoints";
 
 const HeaderNav = ({
   headerRef,
-  isSticky,
   tabs,
   activeTab,
-  showCloseText,
   handleTabMouseOver,
   handleTabClick,
   handleLanguageClick,
   languageRef,
-  showMobileTabs,
   onHeaderMouseEnter,
   onHeaderMouseLeave,
 }) => (
   <>
     <header
       ref={headerRef}
-      className={`${styles.header} ${isSticky ? styles.sticky : ""}`}
+      className={`${styles.header} ${styles.sticky}`}
       onMouseEnter={onHeaderMouseEnter}
       onMouseLeave={onHeaderMouseLeave}
     >
@@ -40,7 +36,6 @@ const HeaderNav = ({
                 key={tab.id}
                 tab={tab}
                 activeTab={activeTab}
-                showCloseText={showCloseText}
                 handleTabMouseOver={handleTabMouseOver}
                 handleTabClick={handleTabClick}
               />
@@ -49,16 +44,8 @@ const HeaderNav = ({
         </nav>
         <div
           className={styles.languageSection}
-          onMouseEnter={() => {
-            if (window.innerWidth > TABLET) {
-              languageRef.current?.trigger();
-            }
-          }}
-          onMouseLeave={() => {
-            if (window.innerWidth > TABLET) {
-              languageRef.current?.stop();
-            }
-          }}
+          onMouseEnter={() => languageRef.current?.trigger()}
+          onMouseLeave={() => languageRef.current?.stop()}
         >
           <button
             className={styles.languageButton}
@@ -69,22 +56,6 @@ const HeaderNav = ({
         </div>
       </div>
     </header>
-    <div
-      className={`${styles.mobileTabsContainer} ${
-        showMobileTabs ? styles.visible : ""
-      }`}
-    >
-      {tabs.map((tab) => (
-        <TabButton
-          key={tab.id}
-          tab={tab}
-          activeTab={activeTab}
-          showCloseText={showCloseText}
-          handleTabMouseOver={handleTabMouseOver}
-          handleTabClick={handleTabClick}
-        />
-      ))}
-    </div>
   </>
 );
 

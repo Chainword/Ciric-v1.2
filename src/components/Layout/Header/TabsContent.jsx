@@ -22,14 +22,8 @@ const tab2Colors = [
 ];
 const tab5Colors = ["bg-hue-50", "bg-hue-100", "bg-hue-150", "bg-hue-200"];
 
-const TabsContent = ({
-  activeTab,
-  tabs,
-  isMobile,
-  setIsContentHovered,
-  tab1Images,
-}) => (
-  <RemoveScroll enabled={activeTab !== null} removeScrollBar={isMobile}>
+const TabsContent = ({ activeTab, tabs, setIsContentHovered, tab1Images }) => (
+  <RemoveScroll enabled={activeTab !== null}>
     <div className={`${styles.tabsContent} ${activeTab ? styles.visible : ""}`}>
       {tabs.map((tab) => (
         <div
