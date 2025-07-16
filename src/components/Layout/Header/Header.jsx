@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { TABLET } from "../../../constants/breakpoints";
-import useThrottledEvent from "../../../hooks/useThrottledEvent";
 import HeaderNav from "./HeaderNav";
 import TabsContent from "./TabsContent";
 
@@ -52,7 +51,7 @@ const Header = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth <= TABLET);
     if (window.innerWidth > TABLET) {
       setIsSticky(true); // Toujours sticky sur desktop
@@ -63,13 +62,17 @@ const Header = () => {
         setShowCloseText({ [activeTab]: true });
       }
     }
-  };
+  }, [activeTab]);
 
   useEffect(() => {
     handleResize();
-  }, []);
+  }, [handleResize]);
 
-  useThrottledEvent("resize", handleResize, 200, { passive: true });
+  useEffect(() => {
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () =>
+      window.removeEventListener("resize", handleResize, { passive: true });
+  }, [handleResize]);
 
   // Toujours sticky sur mobile/tablette au chargement ou si resize vers mobile/tablette
   useEffect(() => {
@@ -79,7 +82,7 @@ const Header = () => {
   }, [isMobile]);
 
   const MIN_SCROLL_DELTA = 10;
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (activeTab) return; // Don't change sticky when a tab is open
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const delta = scrollTop - lastScrollTop.current;
@@ -112,9 +115,13 @@ const Header = () => {
     }
 
     lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
-  };
+  }, [activeTab, isFooterVisible]);
 
-  useThrottledEvent("scroll", handleScroll, 50, { passive: true });
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () =>
+      window.removeEventListener("scroll", handleScroll, { passive: true });
+  }, [handleScroll]);
 
   // Handle tab interactions
   const handleTabMouseOver = (tabId) => {
