@@ -14,6 +14,7 @@
   width: 100%;
   max-width: 100%;
   height: calc(var(--vh, 1vh) * 8);
+  height: 8dvh;
   z-index: var(--z-header);
   background-color: var(--secondary-color);
   transition: transform 0.3s ease;
@@ -53,6 +54,7 @@
   align-items: center;
   justify-content: center;
   height: calc(var(--vh, 1vh) * 8);
+  height: 8dvh;
 }
 .logoContainer {
   display: flex;
@@ -111,6 +113,7 @@
   display: flex;
   align-items: stretch;
   height: calc(var(--vh, 1vh) * 8);
+  height: 8dvh;
   width: 100%;
 }
 .tabsContainer, .desktopTabsContainer {
@@ -176,6 +179,7 @@
   align-items: center;
   justify-content: center;
   height: calc(var(--vh, 1vh) * 8);
+  height: 8dvh;
 }
 
 .languageButton {
@@ -199,11 +203,14 @@
 .tabsContent {
   position: fixed;
   top: calc(var(--vh, 1vh) * 8);
+  top: 8dvh;
   left: 0;
   right: 0;
   bottom: calc(var(--vh, 1vh) * 16);
+  bottom: 16dvh;
   width: 100%;
   height: calc((var(--vh, 1vh) * 100) - calc(var(--vh, 1vh) * 24));
+  height: calc(100dvh - 24dvh);
   z-index: var(--z-content);
   display: none;
   opacity: 0;
@@ -358,6 +365,7 @@
 
   .header {
     height: calc(var(--vh, 1vh) * 8);
+    height: 8dvh;
     max-width: 100%;
     overflow-x: hidden;
     transform: none;
@@ -372,6 +380,7 @@
     display: flex;
     justify-content: center;
     height: calc(var(--vh, 1vh) * 8);
+    height: 8dvh;
   }
   .navigation { width: 100%; height: auto; display: contents; }
   .desktopTabsContainer { display: none; }
@@ -385,6 +394,7 @@
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: none;
     height: calc(var(--vh, 1vh) * 16);
+    height: 16dvh;
     background-color: var(--secondary-color);
     z-index: var(--z-tabs);
     padding: 0;
@@ -441,6 +451,7 @@
 @media (max-width: 767px) {
   .header {
     height: calc(var(--vh, 1vh) * 10);
+    height: 10dvh;
     max-width: 100%;
   }
 
@@ -454,6 +465,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     height: calc(var(--vh, 1vh) * 8);
+    height: 8dvh;
     background-color: var(--secondary-color);
     z-index: var(--z-tabs);
     padding: 0;
@@ -467,10 +479,12 @@
 
   .mobileTabsContainer {
     height: calc(var(--vh, 1vh) * 12);
+    height: 12dvh;
   }
   .logoSection,
   .languageSection {
     height: calc(var(--vh, 1vh) * 10);
+    height: 10dvh;
   }
   .logoMain, .logoSub, .languageButton {
     font-size: var(--font-size-base);
@@ -481,8 +495,11 @@
   }
   .tabsContent {
     top: calc(var(--vh, 1vh) * 10) !important;
+    top: 10dvh !important;
     bottom: calc(var(--vh, 1vh) * 12) !important;
+    bottom: 12dvh !important;
     height: calc((var(--vh, 1vh) * 100) - calc(var(--vh, 1vh) * 22)) !important;
+    height: calc(100dvh - 22dvh) !important;
     background-color: var(--secondary-color);
   }
 }
@@ -499,10 +516,12 @@
   .tabsContent {
     position: fixed;
     top: calc(var(--vh, 1vh) * 8);
+    top: 8dvh;
     left: 0;
     right: 0;
     height: auto;
     max-height: calc(var(--vh, 1vh) * 100);
+    max-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: flex-start;

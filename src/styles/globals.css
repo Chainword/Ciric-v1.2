@@ -141,8 +141,8 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
-  overscroll-behavior: none;
+  scroll-behavior: auto;
+  overscroll-behavior: contain;
 }
 
 html,
@@ -160,7 +160,7 @@ body,
   --black: #000000;
   --transparent: transparent;
   /* Viewport unit fallback */
-  --vh: 1vh;
+  --vh: 1dvh;
 
   /* Palette */
   --primary-color: #141414;
@@ -232,7 +232,8 @@ body {
   min-height: 100vh;
   scrollbar-gutter: stable;
   overflow-x: hidden;
-  overscroll-behavior: none;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;

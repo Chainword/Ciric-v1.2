@@ -78,7 +78,7 @@ const Header = () => {
     }
   }, [isMobile]);
 
-  const MIN_SCROLL_DELTA = 10;
+  const MIN_SCROLL_DELTA = 15;
   const handleScroll = () => {
     if (activeTab) return; // Don't change sticky when a tab is open
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
